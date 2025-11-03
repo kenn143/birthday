@@ -164,7 +164,7 @@ export default function MonthsarySurprise() {
           {createInnerHearts()}
         </div>
 
-        <h1 style={titleStyle}>💖 Happy Monthsary, My Pal! 💖</h1>
+        <h1 style={titleStyle}>💖 Happy 8th Monthsary, My Pal! 💖</h1>
         <p style={messageStyle}>
           Every moment with you is a treasure — 
           every smile, every touch, every heartbeat.  
