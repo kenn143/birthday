@@ -41,7 +41,7 @@ export default function BirthdayBook() {
           {/* LEFT PAGE */}
           <div className={`page left ${open ? "fade-in" : ""}`}>
             {open && (
-              <div style={{ padding: "1px" }}>
+              <div style={{ padding: "2px" }}>
                 <h2 style={{ color: "#e91e63" }}>🎉 Happy Birthday!</h2>
                 <p style={{  color: "#444" }}>
                 Thank you so much for being so kind and patient with us devs! 
@@ -77,7 +77,7 @@ export default function BirthdayBook() {
             {!open && (
               <>
                 <img
-                  src="/candle1.png"
+                  src="/candle3.png"
                   alt="Birthday Cake"
                   style={{ width: "150px", height: "150px" }}
                 />
