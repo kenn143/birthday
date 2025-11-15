@@ -1,177 +1,243 @@
-import { useEffect } from "react";
+import { useState } from "react";
 
-export default function MonthsarySurprise() {
-  // 💫 Add animation styles
-  useEffect(() => {
-    const style = document.createElement("style");
-    style.innerHTML = `
-      @keyframes fadeIn {
-        0% { opacity: 0; transform: scale(0.9); }
-        100% { opacity: 1; transform: scale(1); }
-      }
-      @keyframes floatHeartUp {
-        0% { transform: translateY(0) scale(1); opacity: 1; }
-        100% { transform: translateY(-800px) scale(1.5); opacity: 0; }
-      }
-      @keyframes floatHeartInside {
-        0% { transform: translateY(0) scale(1); opacity: 1; }
-        100% { transform: translateY(-420px) scale(1.4); opacity: 0; }
-      }
-      @keyframes glow {
-        0%, 100% { text-shadow: 0 0 10px #ff4081, 0 0 20px #ff80ab; }
-        50% { text-shadow: 0 0 25px #ff4081, 0 0 40px #ff80ab; }
-      }
-      @keyframes zoomInOut {
-        0%, 100% { transform: scale(1); }
-        50% { transform: scale(1.08); }
-      }
-    `;
-    document.head.appendChild(style);
-  }, []);
+export default function BirthdayBook() {
+  const [open, setOpen] = useState(false);
 
-  // ❤️ Hearts floating upward around the screen
-  const createOuterHearts = () => {
-    const hearts = [];
-    const emojis = ["❤️", "💖", "💘", "💞", "💕", "💗"];
-    for (let i = 0; i < 120; i++) {
-      const left = Math.random() * 100;
-      const delay = Math.random() * 6;
-      const size = Math.random() * 20 + 10;
-      const emoji = emojis[Math.floor(Math.random() * emojis.length)];
-
-      hearts.push(
-        <span
-          key={`outer-${i}`}
-          style={{
-            position: "absolute",
-            bottom: "-60px",
-            left: `${left}%`,
-            fontSize: `${size}px`,
-            opacity: 0.85,
-            animation: `floatHeartUp ${4 + Math.random() * 5}s linear infinite`,
-            animationDelay: `${delay}s`,
-            filter: "drop-shadow(0 0 6px rgba(255, 0, 120, 0.5))",
-            zIndex: 1,
-          }}
-        >
-          {emoji}
-        </span>
-      );
-    }
-    return hearts;
-  };
-
-  // 💕 Hearts floating inside the image
-  const createInnerHearts = () => {
-    const hearts = [];
-    const emojis = ["❤️", "💖", "💘", "💕", "💗"];
-    for (let i = 0; i < 60; i++) {
-      const left = Math.random() * 100;
-      const delay = Math.random() * 4;
-      const size = Math.random() * 18 + 10;
-      const emoji = emojis[Math.floor(Math.random() * emojis.length)];
-
-      hearts.push(
-        <span
-          key={`inner-${i}`}
-          style={{
-            position: "absolute",
-            bottom: "-30px",
-            left: `${left}%`,
-            fontSize: `${size}px`,
-            opacity: 0.9,
-            animation: `floatHeartInside ${3 + Math.random() * 4}s linear infinite`,
-            animationDelay: `${delay}s`,
-            filter: "drop-shadow(0 0 5px rgba(255, 0, 100, 0.6))",
-          }}
-        >
-          {emoji}
-        </span>
-      );
-    }
-    return hearts;
-  };
-
-  // 🌸 Container & card styles
-  const containerStyle = {
-    position: "relative",
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "center",
-    alignItems: "center",
-    height: "100vh",
-    background: "linear-gradient(135deg, #ffb6c1, #ffe6f2)",
-    fontFamily: "'Poppins', sans-serif",
-    overflow: "hidden",
-    padding: "20px",
-  };
-
-  const cardStyle = {
-    background: "rgba(255, 255, 255, 0.95)",
-    borderRadius: "20px",
-    boxShadow: "0 8px 30px rgba(0, 0, 0, 0.2)",
-    padding: "20px",
-    textAlign: "center",
-    maxWidth: "380px",
-    width: "100%",
-    animation: "fadeIn 1s ease-out",
-    zIndex: 5,
-  };
-
-  const imageContainerStyle = {
-    position: "relative",
-    width: "100%",
-    height: "420px",
-    overflow: "hidden",
-    borderRadius: "15px",
-    marginBottom: "20px",
-    boxShadow: "0 4px 15px rgba(0, 0, 0, 0.25)",
-  };
-
-  const imageStyle = {
-    width: "100%",
-    height: "100%",
-    objectFit: "cover",
-    animation: "zoomInOut 10s ease-in-out infinite",
-  };
-
-  const titleStyle = {
-    fontSize: "1.8rem",
-    fontWeight: "bold",
-    color: "#e91e63",
-    marginBottom: "10px",
-    animation: "glow 2s infinite",
-  };
-
-  const messageStyle = {
-    color: "#444",
-    fontSize: "1rem",
-    lineHeight: 1.6,
-    marginTop: "10px",
+  const handleClick = () => {
+    setOpen(true);
   };
 
   return (
-    <div style={containerStyle}>
-      {/* ❤️ Hearts floating all around */}
-      {createOuterHearts()}
-
-      <div style={cardStyle}>
-        <div style={imageContainerStyle}>
-          {/* 💑 Your romantic picture here */}
-          <img src="/monthsary.jpg" alt="Our Memory" style={imageStyle} />
-
-          {/* 💕 Hearts floating inside the image */}
-          {createInnerHearts()}
+    <div
+      style={{
+        height: "100vh",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        background: "linear-gradient(135deg, #ffd6e8, #fff0f8)",
+        fontFamily: "'Poppins', sans-serif",
+        overflow: "hidden",
+        position: "relative",
+      }}
+    >
+      {/* Balloons and Confetti */}
+      {open && (
+        <div className="celebration">
+          {/* Balloons with sticks */}
+          {[...Array(8)].map((_, i) => (
+            <div key={`balloon-${i}`} className={`balloon balloon-${i}`}>
+              <div className="stick" />
+            </div>
+          ))}
+          {/* Confetti */}
+          {[...Array(50)].map((_, i) => (
+            <div key={`confetti-${i}`} className={`confetti confetti-${i}`} />
+          ))}
         </div>
+      )}
 
-        <h1 style={titleStyle}>💖 Happy 8th Monthsary, My Pal! 💖</h1>
-        <p style={messageStyle}>
-          Every moment with you is a treasure — 
-          every smile, every touch, every heartbeat.  
-          My heart floats to you, inside and out. ❤️  
-          I’m so thankful for you, today and always. 💞
-        </p>
+      <div className="book-wrapper" onClick={handleClick}>
+        <div className={`book ${open ? "open" : ""}`}>
+          {/* LEFT PAGE */}
+          <div className={`page left ${open ? "fade-in" : ""}`}>
+            {open && (
+              <div style={{ padding: "1px" }}>
+                <h2 style={{ color: "#e91e63" }}>🎉 Happy Birthday!</h2>
+                <p style={{  color: "#444" }}>
+                Thank you so much for being so kind and patient with us devs! 
+                You’re the absolute best Project Manager we’ve ever had, and we
+                 could ask for nothing more 😍. May your kindness and good vibes 
+                 spread everywhere you go. May your heart’s deepest desires come 
+                 true because you truly deserve them. May God bless you always, Miss 😘. <br/>
+
+            Amping ikaw perme! 🥰
+                </p>
+              </div>
+            )}
+          </div>
+
+          {/* RIGHT PAGE */}
+          <div className={`page right ${open ? "fade-in" : ""}`}>
+            {open && (
+              <img
+                src="/celebrant.jpg"
+                alt="Birthday"
+                style={{
+                  width: "100%",
+                  height: "100%",
+                  objectFit: "cover",
+                  borderRadius: "10px",
+                }}
+              />
+            )}
+          </div>
+
+          {/* FRONT COVER */}
+          <div className={`cover ${open ? "cover-open" : ""}`}>
+            {!open && (
+              <>
+                <img
+                  src="/candle1.png"
+                  alt="Birthday Cake"
+                  style={{ width: "150px", height: "150px" }}
+                />
+                <p style={{ color: "#fff", marginTop: "15px" }}>Blow your candle by clicking</p>
+              </>
+            )}
+          </div>
+        </div>
       </div>
+
+      <style>{`
+        .book-wrapper {
+          width: 600px;
+          height: 400px;
+          perspective: 1500px;
+          cursor: pointer;
+        }
+
+        .book {
+          width: 100%;
+          height: 100%;
+          position: relative;
+          transform-style: preserve-3d;
+          display: flex;
+        }
+
+        .cover {
+          position: absolute;
+          width: 100%;
+          height: 100%;
+          background: linear-gradient(120deg, #ff4081, #ff80ab);
+          border-radius: 8px;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          z-index: 5;
+          box-shadow: 0 10px 25px rgba(0,0,0,0.25);
+          transform-origin: left;
+          transition: transform 1.2s ease, opacity 1s ease;
+        }
+
+        .cover-open {
+          transform: rotateY(-180deg);
+          opacity: 0;
+        }
+
+        .page {
+          width: 50%;
+          height: 100%;
+          background: #fffdfa;
+          box-shadow: inset 0 0 10px rgba(0,0,0,0.1);
+          border-radius: 0 0 8px 8px;
+          overflow: hidden;
+          opacity: 0;
+          transform: rotateY(0deg);
+          transition: opacity 1s ease, transform 1s ease;
+        }
+
+        .fade-in {
+          opacity: 1;
+          transform: rotateY(0deg);
+        }
+
+        .left {
+          border-right: 1px solid #eee;
+        }
+
+        .right {
+          border-left: 1px solid #eee;
+        }
+
+        /* Celebration Container */
+        .celebration {
+          position: absolute;
+          width: 100%;
+          height: 100%;
+          top: 0;
+          left: 0;
+          pointer-events: none;
+          z-index: 3;
+          overflow: hidden;
+        }
+
+        /* Balloons */
+        .balloon {
+          position: absolute;
+          bottom: -80px;
+          width: 40px;
+          height: 40px;
+          border-radius: 50%;
+          opacity: 0.9;
+          animation: floatBalloon 8s linear infinite;
+        }
+
+        .stick {
+          position: absolute;
+          bottom: -60px;
+          width: 2px;
+          height: 60px;
+          background: #555;
+          left: 50%;
+          transform: translateX(-50%);
+        }
+
+        ${[...Array(8)].map((_, i) => {
+          const left = Math.random() * 90 + 5;
+          const delay = Math.random() * 4;
+          const duration = 6 + Math.random() * 4;
+          const color = ["#ff4081","#ff80ab","#ffeb3b","#4caf50","#2196f3","#9c27b0","#ff5722","#00bcd4"][i];
+          return `
+            .balloon-${i} {
+              left: ${left}%;
+              background-color: ${color};
+              animation-delay: ${delay}s;
+              animation-duration: ${duration}s;
+            }
+          `;
+        }).join("\n")}
+
+        @keyframes floatBalloon {
+          0% { transform: translateY(0) rotate(0deg); }
+          50% { transform: translateY(-50vh) rotate(15deg); }
+          100% { transform: translateY(-100vh) rotate(-15deg); }
+        }
+
+        /* Confetti */
+        .confetti {
+          position: absolute;
+          width: 6px;
+          height: 6px;
+          background: red;
+          opacity: 0.9;
+          top: 0;
+          animation-name: confettiFall;
+          animation-timing-function: ease-out;
+          animation-iteration-count: infinite;
+        }
+
+        ${[...Array(50)].map((_, i) => {
+          const left = Math.random() * 100;
+          const duration = 2 + Math.random() * 3;
+          const delay = Math.random() * 5;
+          const colors = ["#ff4081","#ff80ab","#ffeb3b","#4caf50","#2196f3","#9c27b0","#ff5722","#00bcd4"];
+          const color = colors[Math.floor(Math.random() * colors.length)];
+          return `
+            .confetti-${i} {
+              left: ${left}%;
+              background-color: ${color};
+              animation-duration: ${duration}s;
+              animation-delay: ${delay}s;
+            }
+          `;
+        }).join("\n")}
+
+        @keyframes confettiFall {
+          0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+          100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+        }
+      `}</style>
     </div>
   );
 }
